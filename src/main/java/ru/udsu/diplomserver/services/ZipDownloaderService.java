@@ -15,7 +15,6 @@ import java.net.URL;
 public class ZipDownloaderService {
 
     private final FstecXmlParserService fstecXmlParserService;
-    private final FstecParserService parserService;
 
     public void downloadParseAndSave(String zipUrl) throws Exception {
         // 1. Скачиваем ZIP-файл
