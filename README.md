@@ -1,0 +1,1 @@
+        //keytool -import -trustcacerts -keystore "C:\Program Files\Java\jdk-21\lib\security\cacerts" -storepass changeit -noprompt -alias bdufstec -file "C:\Users\Absal\Downloads\_.fstec.ru" добавление серта для fstec
