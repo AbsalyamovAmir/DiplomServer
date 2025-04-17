@@ -6,21 +6,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.udsu.diplomserver.services.ZipDownloaderService;
+import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
+import ru.udsu.diplomserver.services.DownloadService;
+import ru.udsu.diplomserver.services.FstecXmlParserService;
 
 @RestController
 @RequestMapping("/api/fstec")
 @RequiredArgsConstructor
 public class FstecController {
 
-    private final ZipDownloaderService zipDownloaderService;
+    private final DownloadService downloadService;
+    private final FstecXmlParserService fstecXmlParserService;
 
     @PostMapping("/import")
     public ResponseEntity<String> importVulnerabilities() {
         try {
-            zipDownloaderService.downloadParseAndSave(
-                    "https://bdu.fstec.ru/files/documents/vulxml.zip");
-            return ResponseEntity.ok("Vulnerabilities imported successfully");
+            FstecVulnerabilityListDto result = fstecXmlParserService.parseVulnerabilities(downloadService.downloadZipFile());
+            assert result != null;
+            return ResponseEntity.ok("Найдено уязвимостей: " + result.getVulnerabilities().size());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error during import: " + e.getMessage());
