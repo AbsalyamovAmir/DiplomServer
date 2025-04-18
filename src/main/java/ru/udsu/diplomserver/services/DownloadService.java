@@ -14,30 +14,29 @@ import java.util.zip.ZipInputStream;
 @Service
 @Slf4j
 public class DownloadService {
-    public File downloadZipFile() throws IOException {
+    public File downloadAndExtractExportXml() throws IOException {
+        // 1. Скачиваем ZIP-файл во временный файл
         RestTemplate restTemplate = new RestTemplate();
         String url = "https://bdu.fstec.ru/files/documents/vulxml.zip";
 
-        // Создаем временный файл
-        File tempFile = File.createTempFile("vulxml", ".zip");
+        File tempZipFile = File.createTempFile("vulxml", ".zip");
+        tempZipFile.deleteOnExit(); // Удалить после завершения JVM
 
-        // Удаляем файл при выходе из JVM (опционально)
-        tempFile.deleteOnExit();
-        log.info("Downloading vulxml.zip");
-        // Скачиваем файл
         restTemplate.execute(
                 URI.create(url),
                 HttpMethod.GET,
                 null,
-                clientHttpResponse -> {
-                    try (FileOutputStream out = new FileOutputStream(tempFile)) {
-                        FileCopyUtils.copy(clientHttpResponse.getBody(), out);
+                response -> {
+                    try (InputStream in = response.getBody();
+                         FileOutputStream out = new FileOutputStream(tempZipFile)) {
+                        FileCopyUtils.copy(in, out);
                     }
-                    return tempFile;
+                    return tempZipFile;
                 }
         );
-        log.info("Downloaded vulxml.zip");
-        try (ZipInputStream zipIn = new ZipInputStream(new FileInputStream(tempFile))) {
+
+        // 2. Распаковываем ZIP и ищем export/export.xml
+        try (ZipInputStream zipIn = new ZipInputStream(new FileInputStream(tempZipFile))) {
             ZipEntry entry;
             while ((entry = zipIn.getNextEntry()) != null) {
                 if (entry.getName().equals("export/export.xml")) {
@@ -57,7 +56,7 @@ public class DownloadService {
                 }
             }
         }
-        log.info("Unzip vulxml.zip");
+
         throw new FileNotFoundException("Файл export/export.xml не найден в архиве!");
     }
 }

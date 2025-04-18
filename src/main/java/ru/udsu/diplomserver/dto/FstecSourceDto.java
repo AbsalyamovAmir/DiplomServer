@@ -1,19 +1,18 @@
 package ru.udsu.diplomserver.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@Getter
-@Setter
 public class FstecSourceDto {
-    @XmlElement(name = "url")
-    private String url;
+    @XmlValue
+    private String urls;
 
-    @XmlElement(name = "description")
-    private String description;
+    public String[] getUrlArray() {
+        if (urls == null) {
+            return null;
+        }
+        return urls.split("\\s+");
+    }
 }

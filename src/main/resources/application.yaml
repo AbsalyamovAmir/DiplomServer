@@ -14,9 +14,9 @@ spring:
 #        hbm2ddl:
 #          auto: update
   datasource:
-    url: jdbc:postgresql://localhost:5432/mydatabase
+    url: jdbc:postgresql://localhost:5432/diplomBD
     username: admin
-    password: secret
+    password: admin
 
 logging:
   level:

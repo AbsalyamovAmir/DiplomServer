@@ -40,13 +40,6 @@ public class Source {
     @Column(name = "url", nullable = false, length = 500)
     private String url;
 
-    /**
-     * Описание источника
-     * <p>Может содержать информацию о надежности, частоте обновлений и т.д.
-     */
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-
     @ManyToMany(mappedBy = "sources")
     private Set<Vulnerability> vulnerabilities = new HashSet<>();
 }

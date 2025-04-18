@@ -10,19 +10,17 @@ import java.io.File;
 
 @Service
 public class FstecXmlParserService {
+    //Для тестов, если с диска дергать
     public FstecVulnerabilityListDto parseVulnerabilitiesFromXml(String filePath) {
         try {
             File xmlFile = new File(filePath);
 
-            // Добавляем валидацию на существование файла
             if (!xmlFile.exists()) {
                 throw new RuntimeException("Файл не найден: " + filePath);
             }
 
-            // Создаем контекст JAXB
             JAXBContext context = JAXBContext.newInstance(FstecVulnerabilityListDto.class);
 
-            // Демаршаллинг (XML -> Object)
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             return (FstecVulnerabilityListDto) unmarshaller.unmarshal(xmlFile);
@@ -33,10 +31,8 @@ public class FstecXmlParserService {
 
     public FstecVulnerabilityListDto parseVulnerabilities(File xml) {
         try {
-            // Создаем контекст JAXB
             JAXBContext context = JAXBContext.newInstance(FstecVulnerabilityListDto.class);
 
-            // Демаршаллинг (XML -> Object)
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             return (FstecVulnerabilityListDto) unmarshaller.unmarshal(xml);
