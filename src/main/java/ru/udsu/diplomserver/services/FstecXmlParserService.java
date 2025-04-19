@@ -3,12 +3,14 @@ package ru.udsu.diplomserver.services;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
 
 import java.io.File;
 
 @Service
+@Slf4j
 public class FstecXmlParserService {
     //Для тестов, если с диска дергать
     public FstecVulnerabilityListDto parseVulnerabilitiesFromXml(String filePath) {
@@ -18,6 +20,8 @@ public class FstecXmlParserService {
             if (!xmlFile.exists()) {
                 throw new RuntimeException("Файл не найден: " + filePath);
             }
+
+            log.info("Файл получен, сейчас начнется парсинг");
 
             JAXBContext context = JAXBContext.newInstance(FstecVulnerabilityListDto.class);
 
