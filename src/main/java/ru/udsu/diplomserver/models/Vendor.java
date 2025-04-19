@@ -34,14 +34,8 @@ public class Vendor {
      * Название компании-производителя
      * <p>Обязательное поле, максимальная длина 255 символов
      */
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false)
     private String name;
-
-    /**
-     * Описание производителя, дополнительная информация
-     */
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
 
     @OneToMany(mappedBy = "vendor")
     private Set<Software> softwareProducts = new HashSet<>();
