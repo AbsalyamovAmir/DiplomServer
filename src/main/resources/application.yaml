@@ -1,6 +1,6 @@
 spring:
   application:
-    name: "DiplomServer"
+    name: "FstecParser"
 #  jpa:
 #    properties:
 #      hibernate:
@@ -14,7 +14,7 @@ spring:
 #        hbm2ddl:
 #          auto: update
   datasource:
-    url: jdbc:postgresql://localhost:5432/diplomBD
+    url: jdbc:postgresql://localhost:5432/fstecParserDB
     username: admin
     password: admin
 
@@ -22,3 +22,7 @@ logging:
   level:
     root: INFO
     org.springframework.web: DEBUG
+
+
+fstec:
+  url: https://bdu.fstec.ru/files/documents/vulxml.zip

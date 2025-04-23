@@ -1,21 +1,21 @@
 -- Create vendor table
 CREATE TABLE vendor (
-                        id serial PRIMARY KEY,
-                        name VARCHAR(255) NOT NULL,
+                        id BIGINT PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL UNIQUE,
                         description TEXT
 );
 
 -- Create software_type table
 CREATE TABLE software_type (
-                               id serial PRIMARY KEY,
-                               name VARCHAR(100) NOT NULL
+                               id BIGINT PRIMARY KEY,
+                               name VARCHAR(100) NOT NULL UNIQUE
 );
 
 -- Create operating_system table
 CREATE TABLE operating_system (
-                                  id serial PRIMARY KEY,
+                                  id BIGINT PRIMARY KEY,
                                   vendor_id BIGINT,
-                                  name VARCHAR(255) NOT NULL,
+                                  name VARCHAR(255) NOT NULL UNIQUE,
                                   version VARCHAR(100),
                                   platform VARCHAR(100),
                                   FOREIGN KEY (vendor_id) REFERENCES vendor(id)
@@ -23,9 +23,9 @@ CREATE TABLE operating_system (
 
 -- Create software table
 CREATE TABLE software (
-                          id serial PRIMARY KEY,
+                          id BIGINT PRIMARY KEY,
                           vendor_id BIGINT,
-                          name VARCHAR(255) NOT NULL,
+                          name VARCHAR(255) NOT NULL UNIQUE,
                           version VARCHAR(100),
                           platform VARCHAR(100),
                           FOREIGN KEY (vendor_id) REFERENCES vendor(id)
@@ -42,7 +42,7 @@ CREATE TABLE software_types (
 
 -- Create cwe table
 CREATE TABLE cwe (
-                     id serial PRIMARY KEY,
+                     id BIGINT PRIMARY KEY,
                      identifier VARCHAR(20) NOT NULL,
                      name VARCHAR(255) NOT NULL,
                      description TEXT
@@ -50,14 +50,14 @@ CREATE TABLE cwe (
 
 -- Create source table
 CREATE TABLE source (
-                        id serial PRIMARY KEY,
+                        id BIGINT PRIMARY KEY,
                         url VARCHAR(500) NOT NULL,
                         description TEXT
 );
 
 -- Create identifier table
 CREATE TABLE identifier (
-                            id serial PRIMARY KEY,
+                            id BIGINT PRIMARY KEY,
                             type VARCHAR(50) NOT NULL,
                             value VARCHAR(100) NOT NULL,
                             link VARCHAR(500)
@@ -65,9 +65,9 @@ CREATE TABLE identifier (
 
 -- Create vulnerability table
 CREATE TABLE vulnerability (
-                               id serial PRIMARY KEY,
+                               id BIGINT PRIMARY KEY,
                                identifier VARCHAR(50) NOT NULL UNIQUE,
-                               name VARCHAR(500) NOT NULL,
+                               name TEXT NOT NULL,
                                description TEXT,
                                identify_date DATE,
                                cvss_vector VARCHAR(100),

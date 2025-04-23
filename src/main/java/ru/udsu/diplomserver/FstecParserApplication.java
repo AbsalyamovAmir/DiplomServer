@@ -10,10 +10,10 @@ import org.springframework.web.client.RestTemplate;
 import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
 
 @SpringBootApplication
-public class DiplomServerApplication {
+public class FstecParserApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DiplomServerApplication.class, args);
+        SpringApplication.run(FstecParserApplication.class, args);
     }
 
     @Bean

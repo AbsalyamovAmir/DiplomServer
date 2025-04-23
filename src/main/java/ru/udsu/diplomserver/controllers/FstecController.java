@@ -8,13 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
-import ru.udsu.diplomserver.models.Vulnerability;
-import ru.udsu.diplomserver.services.DownloadService;
-import ru.udsu.diplomserver.services.FstecXmlParserService;
-import ru.udsu.diplomserver.utility.VulnerabilityMapper;
-
-import java.util.List;
+import ru.udsu.diplomserver.services.VulnerabilityService;
 
 @RestController
 @RequestMapping("/api/fstec")
@@ -22,17 +16,13 @@ import java.util.List;
 @Slf4j
 public class FstecController {
 
-    private final DownloadService downloadService;
-    private final FstecXmlParserService fstecXmlParserService;
-    private final VulnerabilityMapper vulnerabilityMapper;
+    private final VulnerabilityService vulnerabilityService;
 
     @PostMapping("/import")
     public ResponseEntity<String> importVulnerabilities() {
         try {
-            FstecVulnerabilityListDto result = fstecXmlParserService.parseVulnerabilities(downloadService.downloadAndExtractExportXml());
-            assert result != null;
-            List<Vulnerability> vulnerabilities = vulnerabilityMapper.fromFstecVulnerabilityListDtoToVulnerability(result);
-            return ResponseEntity.ok("Найдено уязвимостей: " + vulnerabilities.size());
+            int result = vulnerabilityService.getAndSaveVulnerabilitiesFromFstec();
+            return ResponseEntity.ok("Найдено уязвимостей: " + result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error during import: " + e.getMessage());
@@ -42,13 +32,10 @@ public class FstecController {
     @GetMapping("/test")
     public ResponseEntity<String> test() {
         try {
-            // Пример использования (для тестирования)
-            FstecVulnerabilityListDto result = fstecXmlParserService.parseVulnerabilitiesFromXml("E:\\export.xml");
+            int result = vulnerabilityService.getAndSaveVulnerabilitiesFromDisk();
 
             log.info("Парсинг закончен. Начинаем маппинг");
-
-            vulnerabilityMapper.fromFstecVulnerabilityListDtoToVulnerability(result);
-            return ResponseEntity.ok("Найдено уязвимостей: " + result.getVulnerabilities().size());
+            return ResponseEntity.ok("Найдено уязвимостей: " + result);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error during import: " + e.getMessage());
