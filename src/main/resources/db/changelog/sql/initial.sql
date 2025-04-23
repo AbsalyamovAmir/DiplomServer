@@ -1,19 +1,19 @@
 -- Create vendor table
 CREATE TABLE vendor (
-                        id BIGINT PRIMARY KEY,
+                        id BIGSERIAL PRIMARY KEY,
                         name VARCHAR(255) NOT NULL UNIQUE,
                         description TEXT
 );
 
 -- Create software_type table
 CREATE TABLE software_type (
-                               id BIGINT PRIMARY KEY,
+                               id BIGSERIAL PRIMARY KEY,
                                name VARCHAR(100) NOT NULL UNIQUE
 );
 
 -- Create operating_system table
 CREATE TABLE operating_system (
-                                  id BIGINT PRIMARY KEY,
+                                  id BIGSERIAL PRIMARY KEY,
                                   vendor_id BIGINT,
                                   name VARCHAR(255) NOT NULL UNIQUE,
                                   version VARCHAR(100),
@@ -23,7 +23,7 @@ CREATE TABLE operating_system (
 
 -- Create software table
 CREATE TABLE software (
-                          id BIGINT PRIMARY KEY,
+                          id BIGSERIAL PRIMARY KEY,
                           vendor_id BIGINT,
                           name VARCHAR(255) NOT NULL UNIQUE,
                           version VARCHAR(100),
@@ -42,7 +42,7 @@ CREATE TABLE software_types (
 
 -- Create cwe table
 CREATE TABLE cwe (
-                     id BIGINT PRIMARY KEY,
+                     id BIGSERIAL PRIMARY KEY,
                      identifier VARCHAR(20) NOT NULL,
                      name VARCHAR(255) NOT NULL,
                      description TEXT
@@ -50,14 +50,14 @@ CREATE TABLE cwe (
 
 -- Create source table
 CREATE TABLE source (
-                        id BIGINT PRIMARY KEY,
+                        id BIGSERIAL PRIMARY KEY,
                         url VARCHAR(500) NOT NULL,
                         description TEXT
 );
 
 -- Create identifier table
 CREATE TABLE identifier (
-                            id BIGINT PRIMARY KEY,
+                            id BIGSERIAL PRIMARY KEY,
                             type VARCHAR(50) NOT NULL,
                             value VARCHAR(100) NOT NULL,
                             link VARCHAR(500)
@@ -65,7 +65,7 @@ CREATE TABLE identifier (
 
 -- Create vulnerability table
 CREATE TABLE vulnerability (
-                               id BIGINT PRIMARY KEY,
+                               id BIGSERIAL PRIMARY KEY,
                                identifier VARCHAR(50) NOT NULL UNIQUE,
                                name TEXT NOT NULL,
                                description TEXT,

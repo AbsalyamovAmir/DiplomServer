@@ -16,6 +16,7 @@ public class FstecXmlParserServiceImpl implements FstecXmlParserService {
     //Для тестов, если с диска дергать
     public FstecVulnerabilityListDto parseVulnerabilitiesFromDisk(String filePath) {
         try {
+            log.info("Start parseVulnerabilities from disk");
             File xmlFile = new File(filePath);
 
             if (!xmlFile.exists()) {
@@ -36,6 +37,7 @@ public class FstecXmlParserServiceImpl implements FstecXmlParserService {
 
     public FstecVulnerabilityListDto parseVulnerabilities(File xml) {
         try {
+            log.info("Start parseVulnerabilities from fstec");
             JAXBContext context = JAXBContext.newInstance(FstecVulnerabilityListDto.class);
 
             Unmarshaller unmarshaller = context.createUnmarshaller();

@@ -22,6 +22,7 @@ public class DownloadServiceImpl implements DownloadService {
     private String fstecUrl;
 
     public File downloadFromFstec() throws IOException {
+        log.info("Downloading from fstec");
         RestTemplate restTemplate = new RestTemplate();
         String url = fstecUrl;
 
@@ -40,6 +41,7 @@ public class DownloadServiceImpl implements DownloadService {
                     return tempZipFile;
                 }
         );
+        log.info("Download completed");
         return tempZipFile;
     }
 }

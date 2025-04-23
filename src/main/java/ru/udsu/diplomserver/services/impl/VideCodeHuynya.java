@@ -1,0 +1,302 @@
+package ru.udsu.diplomserver.services.impl;
+
+/**
+ * ПИЗДУЙ ОТСЮДАВА!!!
+ */
+public class VideCodeHuynya {
+//    private final VendorRepository vendorRepository;
+//    private final SoftwareTypeRepository softwareTypeRepository;
+//    private final SoftwareRepository softwareRepository;
+//    private final OperatingSystemRepository operatingSystemRepository;
+//    private final CweRepository cweRepository;
+//    private final SourceRepository sourceRepository;
+//    private final VulnerabilityRepository vulnerabilityRepository;
+//
+//    public List<Vulnerability> fromFstecVulnerabilityListDtoToVulnerability(FstecVulnerabilityListDto fstecVulnerabilityListDto) {
+//        log.info("Start mapping DTO to Vulnerability");
+//        List<Vulnerability> result = new ArrayList<>(fstecVulnerabilityListDto.getVulnerabilities().size());
+//
+////        ConcurrentHashMap<String, Vulnerability> vulnerabilityCache = new ConcurrentHashMap<>(
+////                vulnerabilityRepository.findAll().stream()
+////                        .collect(Collectors.toMap(Vulnerability::getIdentifier, Function.identity()))
+////        );
+////
+////        ConcurrentHashMap<SoftwareKey, Software> softwareCache = new ConcurrentHashMap<>(softwareRepository.findAll().stream()
+////                .collect(Collectors.toMap(
+////                        s -> new SoftwareKey(s.getName(), s.getVersion(), s.getVendor()),
+////                        Function.identity())));
+////
+////        ConcurrentHashMap<SoftwareKey, OperatingSystem> operatingSystemCache = new ConcurrentHashMap<>(operatingSystemRepository.findAll().stream()
+////                .collect(Collectors.toMap(
+////                        s -> new SoftwareKey(s.getName(), s.getVersion(), s.getVendor()),
+////                        Function.identity())));
+////
+////        ConcurrentHashMap<String, Vendor> vendorsCache = new ConcurrentHashMap<>(vendorRepository.findAll().stream()
+////                .collect(Collectors.toMap(Vendor::getName, Function.identity())));
+////
+////        ConcurrentHashMap<String, SoftwareType> typesCache = new ConcurrentHashMap<>(softwareTypeRepository.findAll().stream()
+////                .collect(Collectors.toMap(SoftwareType::getName, Function.identity())));
+////
+////        ConcurrentHashMap<String, CWE> cweCache = new ConcurrentHashMap<>(cweRepository.findAll().stream()
+////                .collect(Collectors.toMap(CWE::getName, Function.identity())));
+////
+////        ConcurrentHashMap<String, Source> sourceCashe = new ConcurrentHashMap<>(sourceRepository.findAll().stream()
+////                .collect(Collectors.toMap(Source::getUrl, Function.identity())));
+////
+//        AtomicInteger counter = new AtomicInteger();
+////        AtomicInteger skippedCounter = new AtomicInteger();
+//
+//        fstecVulnerabilityListDto.getVulnerabilities().parallelStream().forEach(fstecVulnerabilityDto -> {
+////            if (vulnerabilityCache.containsKey(fstecVulnerabilityDto.getIdentifier())) {
+////                skippedCounter.incrementAndGet();
+////                return;
+////            }
+//
+//            Vulnerability vulnerability = Vulnerability.builder()
+//                    .identifier(fstecVulnerabilityDto.getIdentifier())
+//                    .name(fstecVulnerabilityDto.getName())
+//                    .description(fstecVulnerabilityDto.getDescription())
+//                    .identifyDate(fstecVulnerabilityDto.getIdentifyDate())
+//                    .cvssVector(Optional.ofNullable(fstecVulnerabilityDto.getFstecCvssV2())
+//                            .map(CvssDto::getVector).orElse(null))
+//                    .cvssScore(Optional.ofNullable(fstecVulnerabilityDto.getFstecCvssV2())
+//                            .map(CvssDto::getScore).orElse(null))
+//                    .cvss3Vector(Optional.ofNullable(fstecVulnerabilityDto.getFstecCvssV3())
+//                            .map(CvssDto::getVector).orElse(null))
+//                    .cvss3Score(Optional.ofNullable(fstecVulnerabilityDto.getFstecCvssV3())
+//                            .map(CvssDto::getScore).orElse(null))
+//                    .severity(fstecVulnerabilityDto.getSeverity())
+//                    .solution(fstecVulnerabilityDto.getSolution())
+//                    .vulStatus(fstecVulnerabilityDto.getVulStatus())
+//                    .exploitStatus(fstecVulnerabilityDto.getExploitStatus())
+//                    .fixStatus(fstecVulnerabilityDto.getFixStatus())
+//                    .other(fstecVulnerabilityDto.getOther())
+//                    .vulIncident(fstecVulnerabilityDto.getVulIncident())
+//                    .vulClass(fstecVulnerabilityDto.getVulClass())
+//                    .vulState(fstecVulnerabilityDto.getVulState())
+//                    .build();
+//
+//            mapAffectedSoftware(fstecVulnerabilityDto, vulnerability
+////                    , vendorsCache, typesCache, softwareCache
+//            );
+//
+//            mapAffectedOperationSystem(fstecVulnerabilityDto, vulnerability
+////                    , vendorsCache, operatingSystemCache
+//            );
+//
+//            mapAffectedCwes(fstecVulnerabilityDto, vulnerability
+////                    , cweCache
+//            );
+//
+//            mapAffectedSources(fstecVulnerabilityDto, vulnerability
+////                    , sourceCashe
+//            );
+//
+//            synchronized (result) {
+//                result.add(vulnerability);
+//            }
+//
+//            if (counter.incrementAndGet() % 1000 == 0) {
+//                log.info("Processed {} vulnerabilities", counter.get()
+////                        , skippedCounter.get()
+//                );
+//            }
+//        });
+//
+//        log.info("Total vulnerabilities processed: {}", counter.get()
+////                , skippedCounter.get()
+//        );
+//        return result;
+//    }
+//
+//    private void mapAffectedSoftware(FstecVulnerabilityDto dto, Vulnerability vulnerability
+////            , ConcurrentHashMap<String, Vendor> vendorsCache,
+////                                     ConcurrentHashMap<String, SoftwareType> typesCache,
+////                                     ConcurrentHashMap<SoftwareKey, Software> softwareCache
+//    ) {
+//        Set<Software> affectedSoftware = ConcurrentHashMap.newKeySet();
+//
+//        Set<FstecSoftwareDto> sourceSoftware = dto.getAffectedSoftware();
+//
+//        if (sourceSoftware == null) {
+//            return;
+//        }
+//
+//        for (FstecSoftwareDto softwareDto : sourceSoftware) {
+////            Vendor vendor = vendorsCache.computeIfAbsent(softwareDto.getVendor(), name -> {
+////                Vendor newVendor = new Vendor();
+////                newVendor.setName(name);
+////                return newVendor;
+////            });
+////
+////            SoftwareKey key = new SoftwareKey(softwareDto.getName(), softwareDto.getVersion(), vendor);
+////            Software software = softwareCache.computeIfAbsent(key, k -> {
+////                Software softwareNew = new Software();
+////                softwareNew.setName(softwareDto.getName());
+////                softwareNew.setVersion(softwareDto.getVersion());
+////                softwareNew.setPlatform(softwareDto.getPlatform());
+////                softwareNew.setVendor(vendor);
+////
+////                Set<SoftwareType> types = new HashSet<>();
+////                for (String typeName : softwareDto.getTypes()) {
+////                    SoftwareType type = typesCache.computeIfAbsent(typeName, name -> {
+////                        SoftwareType newType = new SoftwareType();
+////                        newType.setName(name);
+////                        return newType;
+////                    });
+////                    types.add(type);
+////                }
+////                softwareNew.setTypes(types);
+////
+////                return softwareNew;
+////            });
+////
+////            affectedSoftware.add(software);
+//
+//            Vendor newVendor = getVendor(softwareDto.getVendor());
+//
+//            Software softwareNew = new Software();
+//            softwareNew.setName(softwareDto.getName());
+//            softwareNew.setVersion(softwareDto.getVersion());
+//            softwareNew.setPlatform(softwareDto.getPlatform());
+//            softwareNew.setVendor(newVendor);
+//
+//            Set<SoftwareType> types = new HashSet<>();
+//            for (String typeName : softwareDto.getTypes()) {
+//                SoftwareType newType = new SoftwareType();
+//                newType.setName(typeName);
+//                types.add(newType);
+//            }
+//            softwareNew.setTypes(types);
+//
+//            affectedSoftware.add(softwareNew);
+//        }
+//
+//        vulnerability.setAffectedSoftware(affectedSoftware);
+//    }
+//
+//
+//
+//    private void mapAffectedOperationSystem(FstecVulnerabilityDto dto, Vulnerability vulnerability
+////            , ConcurrentHashMap<String, Vendor> vendorsCache,
+////                                            ConcurrentHashMap<SoftwareKey, OperatingSystem> operationSystemCache
+//    ) {
+//        Set<OperatingSystem> affectedOperationSystem = ConcurrentHashMap.newKeySet();
+//
+//        Set<FstecOsDto> operationSystems = dto.getAffectedOs();
+//
+//        if (operationSystems == null) {
+//            return;
+//        }
+//
+//        for (FstecOsDto softwareDto : operationSystems) {
+////            Vendor vendor = vendorsCache.computeIfAbsent(softwareDto.getVendor(), name -> {
+////                Vendor newVendor = new Vendor();
+////                newVendor.setName(name);
+////                return newVendor;
+////            });
+////
+////            SoftwareKey key = new SoftwareKey(softwareDto.getName(), softwareDto.getVersion(), vendor);
+////            OperatingSystem operatingSystem = operationSystemCache.computeIfAbsent(key, k -> {
+////                OperatingSystem operatingSystemNew = new OperatingSystem();
+////                operatingSystemNew.setName(softwareDto.getName());
+////                operatingSystemNew.setVersion(softwareDto.getVersion());
+////                operatingSystemNew.setPlatform(softwareDto.getPlatform());
+////                operatingSystemNew.setVendor(vendor);
+////                return operatingSystemNew;
+////            });
+////
+////            affectedOperationSystem.add(operatingSystem);
+//
+//            Vendor newVendor = getVendor(softwareDto.getVendor());
+//
+//            OperatingSystem operatingSystemNew = new OperatingSystem();
+//            operatingSystemNew.setName(softwareDto.getName());
+//            operatingSystemNew.setVersion(softwareDto.getVersion());
+//            operatingSystemNew.setPlatform(softwareDto.getPlatform());
+//            operatingSystemNew.setVendor(newVendor);
+//
+//            affectedOperationSystem.add(operatingSystemNew);
+//        }
+//
+//        vulnerability.setAffectedOperatingSystems(affectedOperationSystem);
+//    }
+//
+//    private void mapAffectedCwes(FstecVulnerabilityDto dto, Vulnerability vulnerability
+////            , ConcurrentHashMap<String, CWE> cweCache
+//    ) {
+//        Set<CWE> affectedCwes = ConcurrentHashMap.newKeySet();
+//
+//        Set<FstecCweDto> cwes = dto.getCweEntries();
+//
+//        if (cwes == null) {
+//            return;
+//        }
+//
+//        for(FstecCweDto cweDto : cwes) {
+////            affectedCwes.add(cweCache.computeIfAbsent(cweDto.getName(), name -> {
+////                CWE cweNew = new CWE();
+////                cweNew.setName(name);
+////                cweNew.setIdentifier(cweDto.getIdentifier());
+////                cweNew.setDescription(cweDto.getDescription());
+////                return cweNew;
+////            }));
+//
+//            CWE cweNew = new CWE();
+//            cweNew.setName(cweDto.getName());
+//            cweNew.setIdentifier(cweDto.getIdentifier());
+//            cweNew.setDescription(cweDto.getDescription());
+//
+//            affectedCwes.add(cweNew);
+//        }
+//
+//        vulnerability.setCweEntries(affectedCwes);
+//    }
+//
+//    private void mapAffectedSources(FstecVulnerabilityDto dto, Vulnerability vulnerability
+////            , ConcurrentHashMap<String, Source> sourceCache
+//    ) {
+//        Set<Source> sources = ConcurrentHashMap.newKeySet();
+//
+//        FstecSourceDto sourceDto = dto.getSources();
+//        if (sourceDto == null) {
+//            return;
+//        }
+//
+//        Set<String> urlArray = dto.getSources().getUrlArray();
+//        if (urlArray == null) {
+//            return;
+//        }
+//
+//        for (String url : urlArray) {
+//            if (url != null && !url.isBlank()) {
+////                sources.add(sourceCache.computeIfAbsent(url, u -> {
+////                    Source sourceNew = new Source();
+////                    sourceNew.setUrl(u.trim());
+////                    return sourceNew;
+////                }));
+//
+//                Source sourceNew = new Source();
+//                sourceNew.setUrl(url.trim());
+//                sources.add(sourceNew);
+//            }
+//        }
+//
+//        vulnerability.setSources(sources);
+//    }
+//
+//    private static Vendor getVendor(String name) {
+//        Vendor newVendor = new Vendor();
+//        newVendor.setName(name);
+//        return newVendor;
+//    }
+//
+//    @Getter
+//    @AllArgsConstructor
+//    @EqualsAndHashCode
+//    private static class SoftwareKey {
+//        private String name;
+//        private String version;
+//        private Vendor vendor;
+//    }
+}

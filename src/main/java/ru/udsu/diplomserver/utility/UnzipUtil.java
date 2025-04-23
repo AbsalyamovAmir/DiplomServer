@@ -1,15 +1,18 @@
 package ru.udsu.diplomserver.utility;
 
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @UtilityClass
+@Slf4j
 public class UnzipUtil {
 
     public File unzip(File zipFile) throws IOException {
+        log.info("Unzipping {}", zipFile.getAbsolutePath());
         try (ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFile))) {
             ZipEntry entry;
             while ((entry = zipIn.getNextEntry()) != null) {
@@ -26,6 +29,7 @@ public class UnzipUtil {
                             out.write(buffer, 0, bytesRead);
                         }
                     }
+                    log.info("Unzipping export file {}", exportXmlFile.getAbsolutePath());
                     return exportXmlFile; // Возвращаем найденный XML
                 }
             }

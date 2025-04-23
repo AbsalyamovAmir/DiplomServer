@@ -4,15 +4,20 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlValue;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class FstecSourceDto {
     @XmlValue
     private String urls;
 
-    public String[] getUrlArray() {
+    public Set<String> getUrlArray() {
         if (urls == null) {
             return null;
         }
-        return urls.split("\\s+");
+
+        return new HashSet<>(Arrays.asList(urls.split("\\s+")));
     }
 }
