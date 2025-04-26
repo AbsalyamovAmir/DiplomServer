@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.services.impl;
+package ru.udsu.diplomserver.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,7 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.client.RestTemplate;
-import ru.udsu.diplomserver.services.DownloadService;
+import ru.udsu.diplomserver.service.DownloadService;
 
 import java.io.File;
 import java.io.FileOutputStream;

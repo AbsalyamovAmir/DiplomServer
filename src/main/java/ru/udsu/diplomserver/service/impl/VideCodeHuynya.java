@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.services.impl;
+package ru.udsu.diplomserver.service.impl;
 
 /**
  * ПИЗДУЙ ОТСЮДАВА!!!

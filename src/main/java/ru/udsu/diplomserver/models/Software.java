@@ -81,5 +81,5 @@ public class Software {
     private Set<SoftwareType> types;
 
     @ManyToMany(mappedBy = "affectedSoftware")
-    private Set<Vulnerability> vulnerabilities = new HashSet<>();
+    private Vulnerability vulnerabilitie;
 }

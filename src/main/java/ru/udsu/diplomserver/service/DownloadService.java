@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.services;
+package ru.udsu.diplomserver.service;
 
 import java.io.File;
 import java.io.IOException;

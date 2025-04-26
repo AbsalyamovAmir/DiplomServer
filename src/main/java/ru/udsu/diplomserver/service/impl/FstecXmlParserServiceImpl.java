@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.services.impl;
+package ru.udsu.diplomserver.service.impl;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -6,7 +6,7 @@ import jakarta.xml.bind.Unmarshaller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
-import ru.udsu.diplomserver.services.FstecXmlParserService;
+import ru.udsu.diplomserver.service.FstecXmlParserService;
 
 import java.io.File;
 

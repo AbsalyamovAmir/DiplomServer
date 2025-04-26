@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.services;
+package ru.udsu.diplomserver.service;
 
 import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
 

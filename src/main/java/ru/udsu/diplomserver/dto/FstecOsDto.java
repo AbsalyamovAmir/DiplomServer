@@ -1,6 +1,7 @@
 package ru.udsu.diplomserver.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -10,6 +11,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Getter
 @Setter
+@NoArgsConstructor
 public class FstecOsDto {
     @XmlElement(name = "name")
     private String name;
