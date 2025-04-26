@@ -1,11 +1,7 @@
 package ru.udsu.diplomserver.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
+import lombok.*;
 
 /**
  * Операционная система. Содержит информацию о конкретной версии ОС.
@@ -25,45 +21,29 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "operating_system")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class OperatingSystem {
-    /**
-     * Уникальный идентификатор операционной системы
-     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * Производитель данной операционной системы
-     * <p>Ссылка на {@link Vendor}
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vendor_id")
-    private Vendor vendor;
+    @Column(name = "vendor")
+    private String vendor;
 
-    /**
-     * Наименование операционной системы
-     * <p>Обязательное поле, максимальная длина 255 символов
-     */
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name")
     private String name;
 
-    /**
-     * Версия операционной системы
-     * <p>Может включать номер сборки, service pack и т.д.
-     */
-    @Column(name = "version", length = 100)
+    @Column(name = "version")
     private String version;
 
-    /**
-     * Поддерживаемая платформа/архитектура
-     * <p>Примеры: "x86", "x64", "ARM", "PowerPC"
-     */
-    @Column(name = "platform", length = 100)
+    @Column(name = "platform")
     private String platform;
 
-    @ManyToMany(mappedBy = "affectedOperatingSystems")
-    private Set<Vulnerability> vulnerabilities = new HashSet<>();
+    @ManyToOne
+    private Environment environment;
 }

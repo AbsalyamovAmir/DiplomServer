@@ -13,7 +13,7 @@ import java.util.Set;
  *
  * <p>Связан с:
  * <ul>
- *   <li>{@link Software} - продукты этого производителя (отношение One-to-Many)</li>
+ *   <li>{@link VulnerableSoftware} - продукты этого производителя (отношение One-to-Many)</li>
  *   <li>{@link OperatingSystem} - ОС этого производителя (отношение One-to-Many)</li>
  * </ul>
  */
@@ -38,7 +38,7 @@ public class Vendor {
     private String name;
 
     @OneToMany(mappedBy = "vendor")
-    private Set<Software> softwareProducts = new HashSet<>();
+    private Set<VulnerableSoftware> vulnerableSoftwareProducts = new HashSet<>();
 
     @OneToMany(mappedBy = "vendor")
     private Set<OperatingSystem> operatingSystems = new HashSet<>();

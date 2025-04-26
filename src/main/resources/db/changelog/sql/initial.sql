@@ -1,131 +1,108 @@
--- Create vendor table
-CREATE TABLE vendor (
-                        id BIGSERIAL PRIMARY KEY,
-                        name VARCHAR(255) NOT NULL UNIQUE,
-                        description TEXT
+CREATE TABLE vulnerabilities (
+    id BIGSERIAL PRIMARY KEY,
+    identifier VARCHAR(50) NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    description TEXT,
+    identify_date DATE,
+    severity TEXT,
+    solution TEXT,
+    vul_status VARCHAR(100),
+    exploit_status VARCHAR(100),
+    fix_status VARCHAR(100),
+    other TEXT,
+    vul_incident BOOLEAN,
+    vul_class VARCHAR(100),
+    vul_state VARCHAR(100)
 );
 
--- Create software_type table
-CREATE TABLE software_type (
-                               id BIGSERIAL PRIMARY KEY,
-                               name VARCHAR(100) NOT NULL UNIQUE
+CREATE TABLE vulnerable_software (
+    id BIGSERIAL PRIMARY KEY,
+    vulnerability_id INT NOT NULL,
+    vendor VARCHAR(255),
+    name TEXT,
+    version VARCHAR(100),
+    platform VARCHAR(100),
+    FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE
 );
 
--- Create operating_system table
-CREATE TABLE operating_system (
-                                  id BIGSERIAL PRIMARY KEY,
-                                  vendor_id BIGINT,
-                                  name VARCHAR(255) NOT NULL UNIQUE,
-                                  version VARCHAR(100),
-                                  platform VARCHAR(100),
-                                  FOREIGN KEY (vendor_id) REFERENCES vendor(id)
-);
-
--- Create software table
-CREATE TABLE software (
-                          id BIGSERIAL PRIMARY KEY,
-                          vendor_id BIGINT,
-                          name VARCHAR(255) NOT NULL UNIQUE,
-                          version VARCHAR(100),
-                          platform VARCHAR(100),
-                          FOREIGN KEY (vendor_id) REFERENCES vendor(id)
-);
-
--- Create junction table for software and software_type (many-to-many)
 CREATE TABLE software_types (
-                                software_id BIGINT NOT NULL,
-                                type_id BIGINT NOT NULL,
-                                PRIMARY KEY (software_id, type_id),
-                                FOREIGN KEY (software_id) REFERENCES software(id),
-                                FOREIGN KEY (type_id) REFERENCES software_type(id)
+    id BIGSERIAL PRIMARY KEY,
+    software_id INT NOT NULL,
+    type VARCHAR(100) NOT NULL,
+    FOREIGN KEY (software_id) REFERENCES vulnerable_software(id) ON DELETE CASCADE
 );
 
--- Create cwe table
+CREATE TABLE environment (
+    id BIGSERIAL PRIMARY KEY,
+    vulnerability_id INT NOT NULL,
+    FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE
+);
+
+CREATE TABLE os (
+    id BIGSERIAL PRIMARY KEY,
+    environment_id INT NOT NULL,
+    vendor VARCHAR(255),
+    name VARCHAR(100),
+    version VARCHAR(50),
+    platform VARCHAR(50),
+    FOREIGN KEY (environment_id) REFERENCES environment(id) ON DELETE CASCADE
+);
+
+CREATE TABLE cwes (
+    id BIGSERIAL PRIMARY KEY,
+    vulnerability_id INT NOT NULL,
+    FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE
+);
+
 CREATE TABLE cwe (
-                     id BIGSERIAL PRIMARY KEY,
-                     identifier VARCHAR(20) NOT NULL,
-                     name VARCHAR(255) NOT NULL,
-                     description TEXT
+    id BIGSERIAL PRIMARY KEY,
+    cwes_id INT NOT NULL,
+    identifier VARCHAR(20) NOT NULL,
+    name VARCHAR(255),
+    FOREIGN KEY (cwes_id) REFERENCES cwes(id) ON DELETE CASCADE
 );
 
--- Create source table
-CREATE TABLE source (
-                        id BIGSERIAL PRIMARY KEY,
-                        url VARCHAR(500) NOT NULL,
-                        description TEXT
+CREATE TABLE cvss (
+    id BIGSERIAL PRIMARY KEY,
+    vulnerability_id INT NOT NULL,
+    vector VARCHAR(100),
+    score DECIMAL(3,1),
+    FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE
 );
 
--- Create identifier table
-CREATE TABLE identifier (
-                            id BIGSERIAL PRIMARY KEY,
-                            type VARCHAR(50) NOT NULL,
-                            value VARCHAR(100) NOT NULL,
-                            link VARCHAR(500)
+CREATE TABLE cvss3 (
+    id BIGSERIAL PRIMARY KEY,
+    vulnerability_id INT NOT NULL,
+    vector VARCHAR(100),
+    score DECIMAL(3,1),
+    FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE
 );
 
--- Create vulnerability table
-CREATE TABLE vulnerability (
-                               id BIGSERIAL PRIMARY KEY,
-                               identifier VARCHAR(50) NOT NULL UNIQUE,
-                               name TEXT NOT NULL,
-                               description TEXT,
-                               identify_date DATE,
-                               cvss_vector VARCHAR(100),
-                               cvss_score float,
-                               cvss3_vector VARCHAR(100),
-                               cvss3_score float,
-                               severity VARCHAR(255),
-                               solution TEXT,
-                               vul_status VARCHAR(100),
-                               exploit_status VARCHAR(100),
-                               fix_status VARCHAR(100),
-                               other TEXT,
-                               vul_incident BOOLEAN,
-                               vul_class VARCHAR(100),
-                               vul_state VARCHAR(100)
+CREATE TABLE sl_oper_procs (
+    id BIGSERIAL PRIMARY KEY,
+    vulnerability_id INT,
+    FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE
 );
 
--- Create junction table for vulnerability and software (many-to-many)
-CREATE TABLE vulnerability_software (
-                                        vulnerability_id BIGINT NOT NULL,
-                                        software_id BIGINT NOT NULL,
-                                        PRIMARY KEY (vulnerability_id, software_id),
-                                        FOREIGN KEY (vulnerability_id) REFERENCES vulnerability(id),
-                                        FOREIGN KEY (software_id) REFERENCES software(id)
+CREATE TABLE sop (
+    id BIGSERIAL PRIMARY KEY,
+    sl_oper_procs_id INT NOT NULL,
+    name VARCHAR(255),
+    FOREIGN KEY (sl_oper_procs_id) REFERENCES sl_oper_procs(id) ON DELETE CASCADE
 );
 
--- Create junction table for vulnerability and operating_system (many-to-many)
-CREATE TABLE vulnerability_os (
-                                  vulnerability_id BIGINT NOT NULL,
-                                  os_id BIGINT NOT NULL,
-                                  PRIMARY KEY (vulnerability_id, os_id),
-                                  FOREIGN KEY (vulnerability_id) REFERENCES vulnerability(id),
-                                  FOREIGN KEY (os_id) REFERENCES operating_system(id)
+CREATE TABLE sources (
+    id BIGSERIAL PRIMARY KEY,
+    vulnerability_id INT NOT NULL,
+    source TEXT,
+    FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE
 );
 
--- Create junction table for vulnerability and cwe (many-to-many)
-CREATE TABLE vulnerability_cwe (
-                                   vulnerability_id BIGINT NOT NULL,
-                                   cwe_id BIGINT NOT NULL,
-                                   PRIMARY KEY (vulnerability_id, cwe_id),
-                                   FOREIGN KEY (vulnerability_id) REFERENCES vulnerability(id),
-                                   FOREIGN KEY (cwe_id) REFERENCES cwe(id)
-);
-
--- Create junction table for vulnerability and source (many-to-many)
-CREATE TABLE vulnerability_source (
-                                      vulnerability_id BIGINT NOT NULL,
-                                      source_id BIGINT NOT NULL,
-                                      PRIMARY KEY (vulnerability_id, source_id),
-                                      FOREIGN KEY (vulnerability_id) REFERENCES vulnerability(id),
-                                      FOREIGN KEY (source_id) REFERENCES source(id)
-);
-
--- Create junction table for vulnerability and identifier (many-to-many)
-CREATE TABLE vulnerability_identifier (
-                                          vulnerability_id BIGINT NOT NULL,
-                                          identifier_id BIGINT NOT NULL,
-                                          PRIMARY KEY (vulnerability_id, identifier_id),
-                                          FOREIGN KEY (vulnerability_id) REFERENCES vulnerability(id),
-                                          FOREIGN KEY (identifier_id) REFERENCES identifier(id)
+CREATE TABLE identifiers (
+    id BIGSERIAL PRIMARY KEY,
+    vulnerability_id INT NOT NULL,
+    type VARCHAR(50),
+    value VARCHAR(100),
+    link TEXT,
+    FOREIGN KEY (vulnerability_id) REFERENCES vulnerabilities(id) ON DELETE CASCADE
 );

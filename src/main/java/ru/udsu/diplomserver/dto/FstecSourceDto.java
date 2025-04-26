@@ -3,21 +3,13 @@ package ru.udsu.diplomserver.dto;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlValue;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@Getter
+@Setter
 public class FstecSourceDto {
     @XmlValue
     private String urls;
-
-    public Set<String> getUrlArray() {
-        if (urls == null) {
-            return null;
-        }
-
-        return new HashSet<>(Arrays.asList(urls.split("\\s+")));
-    }
 }

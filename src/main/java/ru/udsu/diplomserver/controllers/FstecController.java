@@ -38,6 +38,7 @@ public class FstecController {
             log.info("Парсинг закончен. Начинаем маппинг");
             return ResponseEntity.ok("Найдено уязвимостей: " + result);
         } catch (Exception e) {
+            log.error("Что-то произошло", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error during import: " + e.getMessage());
         }

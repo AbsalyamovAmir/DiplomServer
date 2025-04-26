@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "ru.udsu.diplomserver")
 public class FstecParserApplication {
 
     public static void main(String[] args) {
