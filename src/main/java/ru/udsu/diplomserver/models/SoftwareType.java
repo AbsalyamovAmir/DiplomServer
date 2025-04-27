@@ -38,6 +38,7 @@ public class SoftwareType {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @ManyToMany(mappedBy = "types")
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "softwaretype_id")
     private Set<Software> softwareProducts = new HashSet<>();
 }

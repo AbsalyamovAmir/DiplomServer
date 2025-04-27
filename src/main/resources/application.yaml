@@ -1,18 +1,18 @@
 spring:
   application:
     name: "FstecParser"
-#  jpa:
-#    properties:
-#      hibernate:
-#        jdbc.hibernate.jdbc.batch_size: 500
-#        order_inserts: true
-#        order_updates: true
-#        jdbc:
-#          batch_versioned_data: true
-#          lob:
-#            non_contextual_creation: true
-#        hbm2ddl:
-#          auto: update
+  #  jpa:
+  #    properties:
+  #      hibernate:
+  #        jdbc.hibernate.jdbc.batch_size: 500
+  #        order_inserts: true
+  #        order_updates: true
+  #        jdbc:
+  #          batch_versioned_data: true
+  #          lob:
+  #            non_contextual_creation: true
+  #        hbm2ddl:
+  #          auto: update
   datasource:
     url: jdbc:postgresql://localhost:5432/fstecParserDB
     username: admin

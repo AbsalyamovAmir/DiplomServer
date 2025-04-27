@@ -72,14 +72,10 @@ public class Software {
      * Типы, к которым относится данное программное обеспечение
      * <p>Связь Many-to-Many через таблицу software_types
      */
-    @ManyToMany
-    @JoinTable(
-            name = "software_types",
-            joinColumns = @JoinColumn(name = "software_id"),
-            inverseJoinColumns = @JoinColumn(name = "type_id")
-    )
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "software_id")
     private Set<SoftwareType> types;
 
-    @ManyToMany(mappedBy = "affectedSoftware")
-    private Vulnerability vulnerabilitie;
+//    @ManyToMany(mappedBy = "affectedSoftware")
+//    private Vulnerability vulnerabilitie;
 }

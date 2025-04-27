@@ -64,6 +64,6 @@ public class OperatingSystem {
     @Column(name = "platform", length = 100)
     private String platform;
 
-    @ManyToMany(mappedBy = "affectedOperatingSystems")
-    private Set<Vulnerability> vulnerabilities = new HashSet<>();
+//    @ManyToMany(mappedBy = "affectedOperatingSystems")
+//    private Set<Vulnerability> vulnerabilities = new HashSet<>();
 }
