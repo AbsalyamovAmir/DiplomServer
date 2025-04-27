@@ -19,26 +19,17 @@ public class VulServiceImpl implements VulService {
     @Transactional
     @Override
     public void checkAndSaveVul(Vulnerability vulnerability) {
-
         if (vulnerability.hash() == null) {
             return;
         }
-
         if (repository.existsByHash(vulnerability.hash())) {
             return;
         }
-
         Optional<Vulnerability> optVul = repository.findByIdentifier(vulnerability.identifier());
 
         optVul.ifPresent(vul -> {
             repository.delete(vul);
-//            repository.save(vulnerability);
         });
-
-        try {
-            repository.save(vulnerability);
-        } catch (Exception exception) {
-            System.out.println("123");
-        }
+        repository.save(vulnerability);
     }
 }
