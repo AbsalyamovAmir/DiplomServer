@@ -36,3 +36,5 @@ logging:
 
 fstec:
   url: https://bdu.fstec.ru/files/documents/vulxml.zip
+  retry:
+    count: 3

@@ -21,6 +21,12 @@ public class DownloadServiceImpl implements DownloadService {
     @Value("${fstec.url}")
     private String fstecUrl;
 
+    @Value("${fstec.retry.count}")
+    private Integer retryCount;
+
+    private int retryNow = 0;
+
+    @Override
     public File downloadFromFstec() throws IOException {
         log.info("Downloading from fstec");
         RestTemplate restTemplate = new RestTemplate();
@@ -44,4 +50,12 @@ public class DownloadServiceImpl implements DownloadService {
         log.info("Download completed");
         return tempZipFile;
     }
+
+    private boolean needRetry() {
+        if (retryCount == null) {
+            return false;
+        }
+        return retryNow < retryCount;
+    }
+
 }
