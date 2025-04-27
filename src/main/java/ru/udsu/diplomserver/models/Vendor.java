@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,8 +39,8 @@ public class Vendor {
     private String name;
 
     @OneToMany(mappedBy = "vendor")
-    private Set<Software> softwareProducts = new HashSet<>();
+    private List<Software> softwareProducts;
 
     @OneToMany(mappedBy = "vendor")
-    private Set<OperatingSystem> operatingSystems = new HashSet<>();
+    private List<OperatingSystem> operatingSystems;
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,8 +44,7 @@ public class Software {
      * Производитель данного программного продукта
      * <p>Ссылка на {@link Vendor}
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vendor_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Vendor vendor;
 
     /**
@@ -72,10 +72,10 @@ public class Software {
      * Типы, к которым относится данное программное обеспечение
      * <p>Связь Many-to-Many через таблицу software_types
      */
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "software_id")
-    private Set<SoftwareType> types;
+    @OneToMany(mappedBy = "software", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<SoftwareType> types;
 
-//    @ManyToMany(mappedBy = "affectedSoftware")
-//    private Vulnerability vulnerabilitie;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Vulnerability vulnerability;
+
 }

@@ -1,8 +1,8 @@
 package ru.udsu.diplomserver.service.impl;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.udsu.diplomserver.models.Vulnerability;
 import ru.udsu.diplomserver.repositories.VulnerabilityRepository;
 import ru.udsu.diplomserver.service.VulService;
@@ -14,6 +14,7 @@ import java.util.Optional;
 public class VulServiceImpl implements VulService {
 
     private final VulnerabilityRepository repository;
+
 
     @Transactional
     @Override
@@ -34,6 +35,10 @@ public class VulServiceImpl implements VulService {
 //            repository.save(vulnerability);
         });
 
-        repository.save(vulnerability);
+        try {
+            repository.save(vulnerability);
+        } catch (Exception exception) {
+            System.out.println("123");
+        }
     }
 }

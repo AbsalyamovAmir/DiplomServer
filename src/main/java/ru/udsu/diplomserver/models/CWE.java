@@ -55,7 +55,6 @@ public class CWE {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cwe_id")
-    private Set<Vulnerability> vulnerabilities = new HashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Vulnerability vulnerability;
 }

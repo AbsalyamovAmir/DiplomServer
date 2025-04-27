@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -38,7 +39,6 @@ public class SoftwareType {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "softwaretype_id")
-    private Set<Software> softwareProducts = new HashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Software software;
 }

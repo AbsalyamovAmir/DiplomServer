@@ -39,8 +39,7 @@ public class OperatingSystem {
      * Производитель данной операционной системы
      * <p>Ссылка на {@link Vendor}
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vendor_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Vendor vendor;
 
     /**
@@ -64,6 +63,7 @@ public class OperatingSystem {
     @Column(name = "platform", length = 100)
     private String platform;
 
-//    @ManyToMany(mappedBy = "affectedOperatingSystems")
-//    private Set<Vulnerability> vulnerabilities = new HashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Vulnerability vulnerability;
+
 }

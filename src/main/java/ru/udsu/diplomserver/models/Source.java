@@ -40,7 +40,6 @@ public class Source {
     @Column(name = "url", nullable = false, length = 500)
     private String url;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "source_id")
-    private Set<Vulnerability> vulnerabilities = new HashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Vulnerability vulnerability;
 }
