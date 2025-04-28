@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.udsu.diplomserver.service.VulnerabilityImportService;
+import ru.udsu.diplomserver.service.ImportService;
 
 @RestController
 @RequestMapping("/api/fstec")
@@ -15,12 +15,12 @@ import ru.udsu.diplomserver.service.VulnerabilityImportService;
 @Slf4j
 public class FstecController {
 
-    private final VulnerabilityImportService vulnerabilityImportService;
+    private final ImportService importService;
 
     @GetMapping("/import")
     public ResponseEntity<String> importVulnerabilities() {
         try {
-            int result = vulnerabilityImportService.getAndSaveVulnerabilitiesFromFstec();
+            int result = importService.getAndSaveVulnerabilitiesFromFstec();
             return ResponseEntity.ok("Найдено уязвимостей: " + result);
         } catch (Exception e) {
             log.error("Что-то произошло", e);
@@ -32,7 +32,7 @@ public class FstecController {
     @GetMapping("/test")
     public ResponseEntity<String> test() {
         try {
-            int result = vulnerabilityImportService.getAndSaveVulnerabilitiesFromDisk();
+            int result = importService.getAndSaveVulnerabilitiesFromDisk();
 
             log.info("Парсинг закончен. Начинаем маппинг");
             return ResponseEntity.ok("Найдено уязвимостей: " + result);

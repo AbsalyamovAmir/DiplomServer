@@ -4,7 +4,7 @@ import jakarta.xml.bind.JAXBException;
 
 import java.io.IOException;
 
-public interface VulnerabilityImportService {
+public interface ImportService {
 
     int getAndSaveVulnerabilitiesFromFstec() throws IOException, JAXBException;
 
