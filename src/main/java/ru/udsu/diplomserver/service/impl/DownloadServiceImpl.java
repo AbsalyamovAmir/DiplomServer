@@ -1,5 +1,6 @@
 package ru.udsu.diplomserver.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -16,7 +17,10 @@ import java.net.URI;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class DownloadServiceImpl implements DownloadService {
+
+    private final RestTemplate restTemplate;
 
     @Value("${fstec.url}")
     private String fstecUrl;
@@ -26,28 +30,42 @@ public class DownloadServiceImpl implements DownloadService {
 
     private int retryNow = 0;
 
+    @Value("${fstec.retry.thread-sleep}")
+    private long threadSleep;
+
     @Override
     public File downloadFromFstec() throws IOException {
         log.info("Downloading from fstec");
-        RestTemplate restTemplate = new RestTemplate();
-        String url = fstecUrl;
 
         File tempZipFile = File.createTempFile("vulxml", ".zip");
         tempZipFile.deleteOnExit();
 
-        restTemplate.execute(
-                URI.create(url),
-                HttpMethod.GET,
-                null,
-                response -> {
-                    try (InputStream in = response.getBody();
-                         FileOutputStream out = new FileOutputStream(tempZipFile)) {
-                        FileCopyUtils.copy(in, out);
+        while (needRetry()) {
+            try {
+                return restTemplate.execute(
+                        URI.create(fstecUrl),
+                        HttpMethod.GET,
+                        null,
+                        response -> {
+                            try (InputStream in = response.getBody();
+                                 FileOutputStream out = new FileOutputStream(tempZipFile)) {
+                                FileCopyUtils.copy(in, out);
+                            }
+                            return tempZipFile;
+                        }
+                );
+            } catch (Exception e) {
+                retryNow++;
+                if (needRetry()) {
+                    try {
+                        Thread.sleep(threadSleep);
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                        throw new RuntimeException(ex);
                     }
-                    return tempZipFile;
                 }
-        );
-        log.info("Download completed");
+            }
+        }
         return tempZipFile;
     }
 

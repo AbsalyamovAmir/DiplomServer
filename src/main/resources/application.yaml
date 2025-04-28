@@ -38,3 +38,7 @@ fstec:
   url: https://bdu.fstec.ru/files/documents/vulxml.zip
   retry:
     count: 3
+    thread-sleep: 1000
+  task:
+    cron: "*/60 * * * * *"
+#    cron: 0 0 0 * * ?
