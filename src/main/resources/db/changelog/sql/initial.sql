@@ -69,7 +69,7 @@ create table vulnerability
     vul_class      varchar(100),
     vul_state      varchar(100),
     vul_status     varchar(100),
-    name           varchar(500) not null,
+    name           varchar(1000) not null,
     description    TEXT,
     other          TEXT,
     severity       varchar(255),

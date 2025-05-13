@@ -2,6 +2,7 @@ package ru.udsu.diplomserver;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,11 +11,14 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
 
+import java.security.Security;
+
 @SpringBootApplication
 @EnableScheduling
 public class FstecParserApplication {
 
     public static void main(String[] args) {
+        Security.addProvider(new BouncyCastleProvider());
         SpringApplication.run(FstecParserApplication.class, args);
     }
 
