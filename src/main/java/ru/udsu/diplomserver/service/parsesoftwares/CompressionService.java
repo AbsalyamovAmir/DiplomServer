@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.service;
+package ru.udsu.diplomserver.service.parsesoftwares;
 
 import java.io.IOException;
 

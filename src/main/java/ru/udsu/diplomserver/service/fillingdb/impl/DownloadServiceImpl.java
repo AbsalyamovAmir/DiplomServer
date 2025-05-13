@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.service.impl;
+package ru.udsu.diplomserver.service.fillingdb.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.client.RestTemplate;
-import ru.udsu.diplomserver.service.DownloadService;
+import ru.udsu.diplomserver.service.fillingdb.DownloadService;
 
 import java.io.File;
 import java.io.FileOutputStream;

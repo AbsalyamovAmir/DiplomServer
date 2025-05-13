@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.dto;
+package ru.udsu.diplomserver.dto.vulnerabilities;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

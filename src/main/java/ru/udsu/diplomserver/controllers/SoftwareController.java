@@ -1,14 +1,20 @@
 package ru.udsu.diplomserver.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.udsu.diplomserver.dto.installedsoftwares.InstalledSoftwareDto;
 import ru.udsu.diplomserver.exceptions.InvalidDataException;
-import ru.udsu.diplomserver.service.CompressionService;
-import ru.udsu.diplomserver.service.EncryptionService;
+import ru.udsu.diplomserver.service.parsesoftwares.CompressionService;
+import ru.udsu.diplomserver.service.parsesoftwares.EncryptionService;
+import ru.udsu.diplomserver.service.comparisonsoftwares.VulnerabilityCheckService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +22,8 @@ import ru.udsu.diplomserver.service.EncryptionService;
 public class SoftwareController {
     private final EncryptionService encryptionService;
     private final CompressionService compressionService;
+    private final VulnerabilityCheckService vulnerabilityCheckService;
+    private final ObjectMapper objectMapper;
 
     @PostMapping("/upload-report")
     public ResponseEntity<String> uploadReport(@RequestBody byte[] encryptedData) {
@@ -25,6 +33,11 @@ public class SoftwareController {
             String decryptedJson = processEncryptedData(encryptedData);
             log.info("Отчет успешно обработан. Длина расшифрованного содержимого: {} символов",
                     decryptedJson.length());
+            List<InstalledSoftwareDto> softwareList = objectMapper.readValue(
+                    decryptedJson,
+                    new TypeReference<>() {}
+            );
+            vulnerabilityCheckService.checkInstalledSoftware(softwareList);
             return ResponseEntity.ok("Расшифровано: " + decryptedJson);
         } catch (InvalidDataException e) {
             log.warn("Получены некорректные данные: {}", e.getMessage());

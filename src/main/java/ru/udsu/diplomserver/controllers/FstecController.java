@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.udsu.diplomserver.service.ImportService;
+import ru.udsu.diplomserver.service.fillingdb.ImportService;
 
 @RestController
 @RequestMapping("/api/fstec")

@@ -1,8 +1,8 @@
-package ru.udsu.diplomserver.service.impl;
+package ru.udsu.diplomserver.service.parsesoftwares.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.udsu.diplomserver.service.EncryptionService;
+import ru.udsu.diplomserver.service.parsesoftwares.EncryptionService;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;

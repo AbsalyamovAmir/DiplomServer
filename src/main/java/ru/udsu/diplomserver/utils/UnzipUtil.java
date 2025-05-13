@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.utility;
+package ru.udsu.diplomserver.utils;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;

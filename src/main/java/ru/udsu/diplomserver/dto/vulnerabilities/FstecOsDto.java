@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.dto;
+package ru.udsu.diplomserver.dto.vulnerabilities;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

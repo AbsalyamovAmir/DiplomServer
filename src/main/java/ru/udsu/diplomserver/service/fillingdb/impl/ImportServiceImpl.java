@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.service.impl;
+package ru.udsu.diplomserver.service.fillingdb.impl;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -7,13 +7,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.udsu.diplomserver.dto.FstecVulnerabilityListDto;
+import ru.udsu.diplomserver.dto.vulnerabilities.FstecVulnerabilityListDto;
 import ru.udsu.diplomserver.mapper.VulnerabilityMapper;
 import ru.udsu.diplomserver.models.Vulnerability;
-import ru.udsu.diplomserver.service.DownloadService;
-import ru.udsu.diplomserver.service.ImportService;
-import ru.udsu.diplomserver.service.VulnerabilityService;
-import ru.udsu.diplomserver.utility.UnzipUtil;
+import ru.udsu.diplomserver.service.fillingdb.DownloadService;
+import ru.udsu.diplomserver.service.fillingdb.ImportService;
+import ru.udsu.diplomserver.service.fillingdb.VulnerabilityService;
+import ru.udsu.diplomserver.utils.UnzipUtil;
 
 import java.io.File;
 import java.io.IOException;

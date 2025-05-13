@@ -1,8 +1,8 @@
-package ru.udsu.diplomserver.service.impl;
+package ru.udsu.diplomserver.service.parsesoftwares.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.udsu.diplomserver.service.CompressionService;
+import ru.udsu.diplomserver.service.parsesoftwares.CompressionService;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

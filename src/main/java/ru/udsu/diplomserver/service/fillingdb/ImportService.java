@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.service;
+package ru.udsu.diplomserver.service.fillingdb;
 
 import jakarta.xml.bind.JAXBException;
 

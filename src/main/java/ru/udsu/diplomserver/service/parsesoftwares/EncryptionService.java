@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.service;
+package ru.udsu.diplomserver.service.parsesoftwares;
 
 public interface EncryptionService {
 
