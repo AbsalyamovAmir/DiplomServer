@@ -1,4 +1,4 @@
-package ru.udsu.diplomserver.service.fillingdb.impl;
+package ru.udsu.diplomserver.service.fillingdb.impl.download;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.client.RestTemplate;
-import ru.udsu.diplomserver.service.fillingdb.DownloadService;
+import ru.udsu.diplomserver.utils.UnzipUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,7 +66,7 @@ public class DownloadServiceImpl implements DownloadService {
                 }
             }
         }
-        return tempZipFile;
+        return UnzipUtil.unzip(tempZipFile);
     }
 
     private boolean needRetry() {

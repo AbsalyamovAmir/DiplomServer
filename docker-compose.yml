@@ -8,6 +8,9 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: fstecParserDB
+      POSTGRESQL_MAX_CONNECTIONS: "100"
+      POSTGRESQL_SHARED_BUFFERS: "2GB"
+      POSTGRESQL_EFFECTIVE_CACHE_SIZE: "3GB"
     ports:
       - "5432:5432"
 

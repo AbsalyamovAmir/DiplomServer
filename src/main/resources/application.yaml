@@ -39,8 +39,8 @@ fstec:
     thread-sleep: 1000
   task:
 #    cron: "*/60 * * * * *"
-      cron: 0 0 0 * * ?
-
-import:
+      cron: 0 0 12 * * SUN
+  stub: true
   file:
-    path: D:\projects\projectfiles\export\test.xml
+    path: D:\projects\projectfiles\export\export.xml
+
