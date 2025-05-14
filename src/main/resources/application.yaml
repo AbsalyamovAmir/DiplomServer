@@ -5,26 +5,11 @@ spring:
       properties:
         hibernate:
           batch_size: 1000
-  #        jdbc:
-  #          batch_versioned_data: true
-  #          lob:
-  #            non_contextual_creation: true
-  #        hbm2ddl:
-  #          auto: update
+
   datasource:
     url: jdbc:postgresql://localhost:5432/fstecParserDB
     username: admin
     password: admin
-
-#  jpa:
-#    hibernate:
-#      ddl-auto: create                              # Генерация таблиц!
-#    show-sql: true                                  # Показ SQL в логах
-#    properties:
-#      hibernate:
-#        format_sql: true
-
-
 
 logging:
   level:
@@ -38,8 +23,9 @@ fstec:
     count: 3
     thread-sleep: 1000
   task:
-#    cron: "*/60 * * * * *"
-      cron: 0 0 12 * * SUN
+    #    каждую субботу в 12 часов дня
+    cron: 0 0 12 * * SUN
+  #    поменять на false если надо распарсить файл, а не грузить архив с сайта
   stub: true
   file:
     path: D:\projects\projectfiles\export\export.xml
