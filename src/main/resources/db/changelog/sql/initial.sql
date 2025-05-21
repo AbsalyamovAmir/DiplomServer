@@ -127,3 +127,7 @@ alter table if exists source
 
 INSERT INTO fstecfile ("id", "filehash")
 VALUES (1, '');
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+CREATE INDEX idx_software_name ON software USING gin (name gin_trgm_ops);
