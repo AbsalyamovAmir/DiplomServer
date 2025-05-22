@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.client.RestTemplate;
@@ -25,55 +27,28 @@ public class DownloadServiceImpl implements DownloadService {
     @Value("${fstec.url}")
     private String fstecUrl;
 
-    @Value("${fstec.retry.count}")
-    private Integer retryCount;
-
-    private int retryNow = 0;
-
-    @Value("${fstec.retry.thread-sleep}")
-    private long threadSleep;
-
     @Override
+    @Retryable(
+            maxAttemptsExpression = "${fstec.retry.count:3}",
+            backoff = @Backoff(delayExpression = "${fstec.retry.delay:1000}")
+    )
     public File downloadFromFstec() throws IOException {
         log.info("Downloading from fstec");
 
         File tempZipFile = File.createTempFile("vulxml", ".zip");
         tempZipFile.deleteOnExit();
 
-        while (needRetry()) {
-            try {
-                return restTemplate.execute(
-                        URI.create(fstecUrl),
-                        HttpMethod.GET,
-                        null,
-                        response -> {
-                            try (InputStream in = response.getBody();
-                                 FileOutputStream out = new FileOutputStream(tempZipFile)) {
-                                FileCopyUtils.copy(in, out);
-                            }
-                            return tempZipFile;
-                        }
-                );
-            } catch (Exception e) {
-                retryNow++;
-                if (needRetry()) {
-                    try {
-                        Thread.sleep(threadSleep);
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                        throw new RuntimeException(ex);
+        return restTemplate.execute(
+                URI.create(fstecUrl),
+                HttpMethod.GET,
+                null,
+                response -> {
+                    try (InputStream in = response.getBody();
+                         FileOutputStream out = new FileOutputStream(tempZipFile)) {
+                        FileCopyUtils.copy(in, out);
                     }
+                    return UnzipUtil.unzip(tempZipFile);
                 }
-            }
-        }
-        return UnzipUtil.unzip(tempZipFile);
+        );
     }
-
-    private boolean needRetry() {
-        if (retryCount == null) {
-            return false;
-        }
-        return retryNow < retryCount;
-    }
-
 }

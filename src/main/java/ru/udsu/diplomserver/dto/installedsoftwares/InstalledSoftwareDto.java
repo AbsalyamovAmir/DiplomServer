@@ -13,13 +13,4 @@ public class InstalledSoftwareDto {
 
     @JsonProperty("Vendor")
     private String vendor;
-
-    @JsonProperty("InstallDate")
-    private String installDate;
-
-    @JsonProperty("InstallLocation")
-    private String installLocation;
-
-    @JsonProperty("Architecture")
-    private String architecture;
 }

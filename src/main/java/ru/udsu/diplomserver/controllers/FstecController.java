@@ -28,18 +28,4 @@ public class FstecController {
                     .body("Error during import: " + e.getMessage());
         }
     }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        try {
-            int result = importService.getAndSaveVulnerabilitiesFromDisk();
-
-            log.info("Парсинг закончен. Начинаем маппинг");
-            return ResponseEntity.ok("Найдено уязвимостей: " + result);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error during import: " + e.getMessage());
-        }
-
-    }
 }

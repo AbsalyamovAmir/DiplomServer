@@ -7,6 +7,4 @@ import java.io.IOException;
 public interface ImportService {
 
     int getAndSaveVulnerabilitiesFromFstec() throws IOException, JAXBException;
-
-    int getAndSaveVulnerabilitiesFromDisk() throws IOException;
 }
