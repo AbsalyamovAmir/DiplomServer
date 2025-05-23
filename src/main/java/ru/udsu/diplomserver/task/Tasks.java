@@ -16,9 +16,9 @@ public class Tasks {
     @Scheduled(cron = "${fstec.task.cron}")
     public void downloadXmlFromFstecTask() {
         try {
-            log.info("Запуск обновления базы данных уязвимостей");
+            log.info("Запуск задачи обновления базы данных уязвимостей");
             importService.getAndSaveVulnerabilitiesFromFstec();
-            log.info("База данных обновлена. Записей изменено = {}, записей добавлено = {}");
+            log.info("Задача по сохранению или обновлению базы завершилась успешно");
         } catch (Exception e) {
             log.error("Произошла ошибка при парсинге xml файла message = {}", e.getMessage());
         }

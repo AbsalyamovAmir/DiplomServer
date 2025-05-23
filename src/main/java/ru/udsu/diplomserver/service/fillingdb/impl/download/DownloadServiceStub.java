@@ -9,7 +9,7 @@ import java.io.IOException;
 @Service
 public class DownloadServiceStub implements DownloadService {
 
-    @Value("${fstec.file.path}")
+    @Value("${fstec.file.path.export}")
     private String filePath;
 
     @Override

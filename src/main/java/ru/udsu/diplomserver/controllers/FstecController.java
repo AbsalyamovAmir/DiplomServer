@@ -20,8 +20,8 @@ public class FstecController {
     @GetMapping("/import")
     public ResponseEntity<String> importVulnerabilities() {
         try {
-            int result = importService.getAndSaveVulnerabilitiesFromFstec();
-            return ResponseEntity.ok("Найдено уязвимостей: " + result);
+            importService.getAndSaveVulnerabilitiesFromFstec();
+            return ResponseEntity.ok("База сохранена");
         } catch (Exception e) {
             log.error("Что-то произошло", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

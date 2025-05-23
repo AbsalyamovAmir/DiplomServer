@@ -15,6 +15,7 @@ logging:
   level:
     root: INFO
     org.springframework.web: DEBUG
+    org.springframework.transaction: debug
 
 
 fstec:
@@ -26,7 +27,10 @@ fstec:
     #    каждую субботу в 12 часов дня
     cron: 0 0 12 * * SUN
   #    поменять на false если надо распарсить файл, а не грузить архив с сайта
-  stub: true
+  stub: false
   file:
-    path: D:\projects\projectfiles\export\export.xml
+    path:
+      export: D:\projects\projectfiles\export\export.xml
+      html: C:\Users\Absal\OneDrive\Рабочий стол\ScanOval_Report_22_05_2025_fe08ec8f-ef68-4d23-b3a4-5da5d7b6fbc8.html
+
 

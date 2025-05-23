@@ -6,5 +6,5 @@ import java.io.IOException;
 
 public interface ImportService {
 
-    int getAndSaveVulnerabilitiesFromFstec() throws IOException, JAXBException;
+    void getAndSaveVulnerabilitiesFromFstec() throws IOException, JAXBException;
 }
