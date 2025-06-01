@@ -35,8 +35,7 @@ public class SoftwareController {
                     decryptedJson,
                     new TypeReference<>() {}
             );
-            vulnerabilityCheckService.checkInstalledSoftware(response);
-            return ResponseEntity.ok("Расшифровано: " + decryptedJson);
+            return ResponseEntity.ok("Расшифровано: " + vulnerabilityCheckService.checkInstalledSoftware(response));
         } catch (InvalidDataException e) {
             log.warn("Получены некорректные данные: {}", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
